@@ -28,8 +28,12 @@ export default class LoginController extends Controller {
     const userDataStr = JSON.parse(JSON.stringify(user));
     const token = await ctx.getToken(userDataStr);
     ctx.generateResponse({ data: { access_token: token, userInfo: user } });
+    ctx.rotateCsrfSecret();
   }
 
+  /**
+   * 注册
+   */
   async regist() {
     const { ctx, service } = this;
     const { email, username, password } = ctx.request.body;
