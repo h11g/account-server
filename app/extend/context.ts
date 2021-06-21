@@ -1,12 +1,16 @@
 import { Context } from 'egg';
+import errorCode from '../common/error-code';
 
 const context = {
   /**
 	 * 返回客户端的内容
 	 */
-  generateResponse({ msg = 'ok', data = {}, status = true, code = 200 }) {
+  generateResponse({ msg = 'ok', data = {}, status = true, code = 0, statusCode = 200 }) {
     const ctx = this as Context;
-    ctx.status = code;
+    ctx.status = statusCode;
+    if (!status && code === 0) {
+      code = errorCode.SERVER_ERROR;
+    }
     ctx.body = {
       status,
       data,

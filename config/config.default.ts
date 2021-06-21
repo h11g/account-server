@@ -8,7 +8,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1624165262860_6489';
 
   // add your egg config in here
-  config.middleware = [];
+  config.middleware = [ 'auth' ];
 
   // add your special config in here
   const bizConfig = {
@@ -18,6 +18,10 @@ export default (appInfo: EggAppInfo) => {
     },
     jwt: {
       secret: 'mymoney$jwt$secret',
+    },
+    // 配置不需要 auth 中间件的 url 请求
+    auth: {
+      ignore: '/mymoney/auth',
     },
   };
 

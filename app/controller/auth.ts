@@ -20,7 +20,7 @@ export default class LoginController extends Controller {
     const currentUser = await service.user.getPasswordByUsername(username);
     const verify = await ctx.helper.checkPassword(password, currentUser.password);
     if (!verify) {
-      ctx.generateResponse({ msg: '密码错误，请重试', status: false });
+      ctx.generateResponse({ msg: '密码错误，请重试！', status: false });
       return;
     }
 
