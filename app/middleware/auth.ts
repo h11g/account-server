@@ -24,7 +24,7 @@ module.exports = () => {
       return;
     }
 
-    // ctx.request.user = user;
+    ctx.user = user;
     await next();
   };
 };

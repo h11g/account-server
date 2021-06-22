@@ -10,7 +10,7 @@ export default class LoginController extends Controller {
     const { username, password } = body;
 
     // 校验用户名是否存在
-    let user = await service.user.getUsersByName(username);
+    let user = await service.user.getUserByName(username);
     if (!user) {
       ctx.generateResponse({ msg: '用户不存在！', status: false });
       return;

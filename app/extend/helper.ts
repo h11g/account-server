@@ -3,8 +3,7 @@ import sha256 = require('crypto-js/sha256');
 const helper = {
   // 加密
   async createPassword(password: string) {
-    const hamc = sha256(password, (this as any).config.crypto.secret);
-    return hamc.toString();
+    return sha256(password, (this as any).config.crypto.secret).toString();
   },
   // 验证密码
   async checkPassword(password, hash_password) {

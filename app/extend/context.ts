@@ -25,7 +25,11 @@ const context = {
     return await jwt.sign(data, config.jwt.secret, { expiresIn: 30 * 24 * 60 * 60 + 's' });
   },
 
-  // 验证token
+  /**
+   * 验证 token，返回用户信息
+   * @param token token 字符串
+   * @return {Promise[user]} 返回 user 信息
+   */
   async checkToken(token) {
     return await (this as any).app.jwt.verify(token, (this as any).app.config.jwt.secret);
   },
