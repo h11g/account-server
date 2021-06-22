@@ -30,8 +30,20 @@ const context = {
    * @param token token 字符串
    * @return {Promise[user]} 返回 user 信息
    */
-  async checkToken(token) {
+  async checkToken(token): Promise<User> {
     return await (this as any).app.jwt.verify(token, (this as any).app.config.jwt.secret);
+  },
+
+  async getUser() {
+    const token = (this as Context).headers.authorization || '';
+    let user: User | null = null;
+    try {
+      const tokenUser = await this.checkToken(token);
+      user = await (this as Context).service.user.getUserByUserId(tokenUser._id);
+    } catch (error) {
+      user = null;
+    }
+    return user;
   },
 };
 

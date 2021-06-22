@@ -12,6 +12,12 @@ export default class User extends Service {
     return ctx.model.User.findOne(query, selectUserKey).exec();
   }
 
+  public async getUserByUserId(id: string) {
+    const { ctx } = this;
+    const query = { _id: { $in: id } };
+    return ctx.model.User.findOne(query, selectUserKey).exec();
+  }
+
   /**
    * 根据用户名获取密码
    * @param username 用户名
