@@ -5,7 +5,13 @@ const context = {
   /**
 	 * 返回客户端的内容
 	 */
-  generateResponse({ msg = 'ok', data = {}, status = true, code = 0, statusCode = 200 }) {
+  generateResponse({ msg = 'ok', data = null, status = true, code = 0, statusCode = 200 }: {
+    msg?: string,
+    data?: any,
+    status?: boolean,
+    code?: number,
+    statusCode?: number
+  }): void {
     const ctx = this as Context;
     ctx.status = statusCode;
     if (!status && code === 0) {
@@ -34,12 +40,13 @@ const context = {
     return await (this as any).app.jwt.verify(token, (this as any).app.config.jwt.secret);
   },
 
-  async getUser() {
+  async getUser(): Promise<User> {
     const token = (this as Context).headers.authorization || '';
-    let user: User | null = null;
+    let user: any;
     try {
       const tokenUser = await this.checkToken(token);
       user = await (this as Context).service.user.getUserByUserId(tokenUser._id);
+      user.toObject();
     } catch (error) {
       user = null;
     }
