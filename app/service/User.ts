@@ -50,6 +50,6 @@ export default class User extends Service {
       email,
     });
 
-    return this.getUserByName(username);
+    return await this.getUserByName(username);
   }
 }

@@ -40,13 +40,12 @@ const context = {
     return await (this as any).app.jwt.verify(token, (this as any).app.config.jwt.secret);
   },
 
-  async getUser(): Promise<User> {
+  async getUser(): Promise<any> {
     const token = (this as Context).headers.authorization || '';
     let user: any;
     try {
       const tokenUser = await this.checkToken(token);
       user = await (this as Context).service.user.getUserByUserId(tokenUser._id);
-      user.toObject();
     } catch (error) {
       user = null;
     }

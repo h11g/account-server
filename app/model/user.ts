@@ -21,6 +21,7 @@ export default function(app) {
     },
   }, {
     timestamps: { createdAt: 'created', updatedAt: 'updated' },
+    collections: 'users',
   });
 
   return mongoose.model('User', UserSchema);
