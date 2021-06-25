@@ -3,12 +3,14 @@
 
 import 'egg';
 import ExportAuth from '../../../app/controller/auth';
+import ExportBook from '../../../app/controller/book';
 import ExportHome from '../../../app/controller/home';
 import ExportUser from '../../../app/controller/user';
 
 declare module 'egg' {
   interface IController {
     auth: ExportAuth;
+    book: ExportBook;
     home: ExportHome;
     user: ExportUser;
   }

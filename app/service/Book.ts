@@ -1,14 +1,19 @@
 import { Service } from 'egg';
 
-const selectUserKey = { created: 0, updated: 0 };
+enum BookType {
+  'daily' = 1,
+  'travel' = 2
+}
+
+const selectUserKey = { name: 1, type: 1, _id: 1 };
 
 export default class BookService extends Service {
-  public async createDefaultBook(user: any) {
+  public async createDefaultBook(_id: string) {
     const { ctx } = this;
     await ctx.model.Book.create({
-      name: '日常生活',
+      name: '默认账本',
       type: BookType.daily,
-      user_id: user._id,
+      user_id: _id,
     });
   }
 
@@ -19,7 +24,7 @@ export default class BookService extends Service {
    */
   public async queryBooksByUserId(id: string) {
     const { ctx } = this;
-    const query = { _id: { $in: id } };
-    return ctx.model.Book.find(query, selectUserKey);
+    const query = { user_id: { $in: id } };
+    return ctx.model.Book.find(query, selectUserKey).exec();
   }
 }

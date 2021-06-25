@@ -11,4 +11,7 @@ export default (app: Application) => {
 
   // 用户
   router.get('/mymoney/user/info', controller.user.getUserInfo);
+
+  // 账本
+  router.get('/mymoney/book/list', controller.book.getBooks);
 };
