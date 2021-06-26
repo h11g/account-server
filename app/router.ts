@@ -14,5 +14,11 @@ export default (app: Application) => {
 
   // 账本
   router.get('/mymoney/book/list', controller.book.getBooks);
+  router.post('/mymoney/book/create', controller.book.createBook);
+  router.post('/mymoney/book/update', controller.book.updateBook);
+
+  // 账户
   router.get('/mymoney/account/list', controller.account.getAccounts);
+  router.post('/mymoney/account/create', controller.account.createAccount);
+  router.post('/mymoney/account/update', controller.account.updateAccount);
 };

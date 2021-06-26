@@ -42,4 +42,28 @@ export default class AccountService extends Service {
     const query = { book_id: { $in: id } };
     return ctx.model.Account.find(query, selectUserKey).exec();
   }
+
+  public async addAccount(name: string, type: number, group: number, book_id: string) {
+    const { ctx } = this;
+    await ctx.model.Account.create({
+      name,
+      type,
+      book_id,
+      group,
+    });
+  }
+
+  public async updateAccount(account_id: string, name: string) {
+    const { ctx } = this;
+    await ctx.model.Account.findByIdAndUpdate(account_id, {
+      $set: {
+        name,
+      },
+    });
+  }
+
+  public async deleteAccountById(account_id: string) {
+    const { ctx } = this;
+    await ctx.model.Account.findByIdAndRemove(account_id);
+  }
 }
