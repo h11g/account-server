@@ -4,7 +4,8 @@ import { Controller } from 'egg';
 export default class BookController extends Controller {
   async getBooks() {
     const { ctx } = this;
-    const user = await ctx.getUser();
+    const user = ctx.user;
+
     let books: any = await ctx.service.book.queryBooksByUserId(user._id);
 
     if (books.length === 0) {

@@ -1,8 +1,8 @@
 import { Service } from 'egg';
 
 enum BookType {
-  'daily' = 1,
-  'travel' = 2
+  DAILY = 1,
+  TRAVEL = 2
 }
 
 const selectUserKey = { name: 1, type: 1, _id: 1 };
@@ -12,7 +12,7 @@ export default class BookService extends Service {
     const { ctx } = this;
     await ctx.model.Book.create({
       name: '默认账本',
-      type: BookType.daily,
+      type: BookType.DAILY,
       user_id: _id,
     });
   }
