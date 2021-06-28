@@ -10,15 +10,15 @@ export default (app: Application) => {
   router.post('/mymoney/auth/regist', controller.auth.regist);
 
   // 用户
-  router.get('/mymoney/user/info', controller.user.getUserInfo);
+  router.post('/mymoney/user/info', controller.user.getUserInfo);
 
   // 账本
-  router.get('/mymoney/book/list', controller.book.getBooks);
+  router.post('/mymoney/book/list', controller.book.getBooks);
   router.post('/mymoney/book/create', controller.book.createBook);
   router.post('/mymoney/book/update', controller.book.updateBook);
 
   // 账户
-  router.get('/mymoney/account/list', controller.account.getAccounts);
+  router.post('/mymoney/account/list', controller.account.getAccounts);
   router.post('/mymoney/account/create', controller.account.createAccount);
   router.post('/mymoney/account/update', controller.account.updateAccount);
 };

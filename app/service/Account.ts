@@ -15,7 +15,7 @@ enum AccountGroup {
   CAPITAL = 1,
   CREDIT_CARD = 2,
   INVESTING = 3,
-  DEBTS = 3
+  DEBTS = 4
 }
 
 export default class AccountService extends Service {
