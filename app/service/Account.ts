@@ -1,40 +1,37 @@
 import { Service } from 'egg';
+import * as _ from 'lodash';
 
 const selectUserKey = { created: 0, updated: 0, __v: 0 };
-
-enum AccountType {
-  OTHER = 0,
-  CASH = 1,
-  WECHAT = 2,
-  ALIPAY = 3,
-  BANK_CARD = 4,
-  CREDIT_CARD = 5
-}
-
-enum AccountGroup {
-  CAPITAL = 1,
-  CREDIT_CARD = 2,
-  INVESTING = 3,
-  DEBTS = 4
-}
 
 export default class AccountService extends Service {
   public async createDefaultAccounts(_id: string) {
     const { ctx } = this;
-    await ctx.model.Account.create([
-      {
-        name: '现金',
-        type: AccountType.CASH,
-        book_id: _id,
-        group: AccountGroup.CAPITAL,
-      },
-      {
-        name: '支付宝',
-        type: AccountType.ALIPAY,
-        book_id: _id,
-        group: AccountGroup.CAPITAL,
-      },
-    ]);
+    let groups: AccountGroup[] = await ctx.service.accountGroup.queryAccountGroups();
+    if (groups.length === 0) {
+      await ctx.service.accountGroup.createDefaultAccountGroup();
+      groups = await ctx.service.accountGroup.queryAccountGroups();
+    }
+
+    const accounts = _.map(groups, group => {
+      if (group.name === '资金账户') {
+        return {
+          name: '现金',
+          type: 'cash',
+          book_id: _id,
+          group: group._id,
+        };
+      } else if (group.name === '虚拟账户') {
+        return {
+          name: '支付宝',
+          type: 'alipay',
+          book_id: _id,
+          group: group._id,
+        };
+      }
+      return null;
+    }).filter(Boolean);
+
+    await ctx.model.Account.create(accounts);
   }
 
   public async queryAccountsByBookId(id: string) {

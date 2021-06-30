@@ -21,4 +21,5 @@ export default (app: Application) => {
   router.post('/mymoney/account/list', controller.account.getAccounts);
   router.post('/mymoney/account/create', controller.account.createAccount);
   router.post('/mymoney/account/update', controller.account.updateAccount);
+  router.post('/mymoney/account/group/list', controller.account.getAccountGroups);
 };

@@ -46,4 +46,16 @@ export default class AccountController extends Controller {
     await ctx.service.account.updateAccount(id, name);
     ctx.generateResponse({});
   }
+
+  async getAccountGroups() {
+    const { ctx } = this;
+    let accountGroups = await ctx.service.accountGroup.queryAccountGroups();
+
+    if (accountGroups.length === 0) {
+      await ctx.service.accountGroup.createDefaultAccountGroup();
+      accountGroups = await ctx.service.accountGroup.queryAccountGroups();
+    }
+
+    ctx.generateResponse({ data: accountGroups });
+  }
 }

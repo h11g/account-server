@@ -2,12 +2,14 @@
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
+import ExportAccountGroup from '../../../app/model/account-group';
 import ExportAccount from '../../../app/model/account';
 import ExportBook from '../../../app/model/book';
 import ExportUser from '../../../app/model/user';
 
 declare module 'egg' {
   interface IModel {
+    AccountGroup: ReturnType<typeof ExportAccountGroup>;
     Account: ReturnType<typeof ExportAccount>;
     Book: ReturnType<typeof ExportBook>;
     User: ReturnType<typeof ExportUser>;

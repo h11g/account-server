@@ -4,13 +4,6 @@ export default function(app: Application) {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
-  /**
-   * type 账户的类型
-   * other 0, cash 1, wechat 2, alipay 3, bank card 4, credit card 5 ...
-   * ==================
-   * group 对 type 的分组，比如资金账户，债务，信用卡，投资等
-   * capital 1，credit card 2, investing 3, debts 4
-   */
   const AccountSchema = new Schema({
     name: {
       type: String,
@@ -18,9 +11,10 @@ export default function(app: Application) {
       minlength: [ 2, '账户名长度不能小于2' ],
       maxlength: [ 16, '账户名长度不能大于16' ],
     },
+    // 账户类型，指 AccountGroup 下 account_type 的某个账户类型
     type: {
-      type: Number,
-      required: [ true, '账户未指定类型' ],
+      type: String,
+      require: true,
     },
     book_id: {
       type: Schema.Types.ObjectId,
@@ -32,8 +26,9 @@ export default function(app: Application) {
       type: Number,
     },
     group: {
-      type: Number,
+      type: Schema.Types.ObjectId,
       required: true,
+      ref: 'account-groups',
     },
   }, {
     timestamps: { createdAt: 'created', updatedAt: 'updated' },
