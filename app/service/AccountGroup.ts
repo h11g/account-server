@@ -41,6 +41,7 @@ export default class AccountGroupService extends Service {
       },
       {
         name: '债权账户',
+        sign: 1,
         account_type: [
           { name: '借出', id: 'lend' },
         ],

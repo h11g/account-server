@@ -23,27 +23,39 @@ export default class AccountController extends Controller {
 
   async createAccount() {
     const { ctx } = this;
-    const { name, type, group, book_id } = ctx.request.body;
+    const { name, type, group, book_id, balance } = ctx.request.body;
 
-    if (!name || _.isNil(type) || _.isNil(group)) {
+    if (!name || !type || !group || !book_id) {
       ctx.generateResponse({ msg: '缺少参数', status: false });
       return;
     }
 
-    await ctx.service.account.addAccount(name, type, group, book_id);
+    await ctx.service.account.addAccount(name, type, group, book_id, balance);
     const accounts = await ctx.service.account.queryAccountsByBookId(book_id);
     ctx.generateResponse({ data: accounts });
   }
 
   async updateAccount() {
     const { ctx } = this;
-    const { name, id } = ctx;
+    const { name, id } = ctx.request.body;
     if (!name) {
       ctx.generateResponse({ msg: '缺少参数', status: false });
       return;
     }
 
     await ctx.service.account.updateAccount(id, name);
+    ctx.generateResponse({});
+  }
+
+  async deleteAccount() {
+    const { ctx } = this;
+    const { id } = ctx.request.body;
+    if (!id) {
+      ctx.generateResponse({ msg: '缺少参数', status: false });
+      return;
+    }
+
+    await ctx.service.account.deleteAccountById(id);
     ctx.generateResponse({});
   }
 

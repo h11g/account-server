@@ -40,13 +40,14 @@ export default class AccountService extends Service {
     return ctx.model.Account.find(query, selectUserKey).exec();
   }
 
-  public async addAccount(name: string, type: number, group: number, book_id: string) {
+  public async addAccount(name: string, type: number, group: number, book_id: string, balance = 0) {
     const { ctx } = this;
     await ctx.model.Account.create({
       name,
       type,
       book_id,
       group,
+      balance,
     });
   }
 

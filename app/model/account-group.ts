@@ -15,6 +15,11 @@ export default function(app: Application) {
       default: [],
       type: Schema.Types.Array,
     },
+    // 正负负号为，0 表示正数，1 表示负数
+    sign: {
+      default: 0,
+      type: Schema.Types.Boolean,
+    },
   }, {
     timestamps: { createdAt: 'created', updatedAt: 'updated' },
     collection: 'account_group',
