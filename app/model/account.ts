@@ -28,7 +28,7 @@ export default function(app: Application) {
     group: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: 'account-groups',
+      ref: 'account_groups',
     },
   }, {
     timestamps: { createdAt: 'created', updatedAt: 'updated' },

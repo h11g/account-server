@@ -15,9 +15,9 @@ export default function(app: Application) {
       default: [],
       type: Schema.Types.Array,
     },
-    // 正负负号为，0 表示正数，1 表示负数
+    // false 表示正数，true 表示负数
     sign: {
-      default: 0,
+      default: false,
       type: Schema.Types.Boolean,
     },
   }, {

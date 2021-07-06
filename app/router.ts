@@ -23,4 +23,7 @@ export default (app: Application) => {
   router.post('/mymoney/account/update', controller.account.updateAccount);
   router.post('/mymoney/account/delete', controller.account.deleteAccount);
   router.post('/mymoney/account/group/list', controller.account.getAccountGroups);
+
+  // 分类
+  router.post('/mymoney/category/list', controller.category.getCategory);
 };
