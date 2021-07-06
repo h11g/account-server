@@ -1,5 +1,5 @@
 import { Controller } from 'egg';
-import * as _ from 'lodash';
+
 export default class AccountController extends Controller {
   async getAccounts() {
     const { ctx } = this;
@@ -37,13 +37,13 @@ export default class AccountController extends Controller {
 
   async updateAccount() {
     const { ctx } = this;
-    const { name, id } = ctx.request.body;
+    const { name, id, type, balance } = ctx.request.body;
     if (!name) {
-      ctx.generateResponse({ msg: '缺少参数', status: false });
+      ctx.generateResponse({ msg: '账户名不能为空', status: false });
       return;
     }
 
-    await ctx.service.account.updateAccount(id, name);
+    await ctx.service.account.updateAccount(id, name, type, balance);
     ctx.generateResponse({});
   }
 

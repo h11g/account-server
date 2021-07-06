@@ -51,13 +51,15 @@ export default class AccountService extends Service {
     });
   }
 
-  public async updateAccount(account_id: string, name: string) {
+  public async updateAccount(account_id: string, name: string, type: string, balance: number) {
     const { ctx } = this;
     await ctx.model.Account.findByIdAndUpdate(account_id, {
       $set: {
         name,
+        type,
+        balance,
       },
-    });
+    }, { omitUndefined: true });
   }
 
   public async deleteAccountById(account_id: string) {
