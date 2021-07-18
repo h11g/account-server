@@ -14,4 +14,41 @@ export default class CategoryController extends Controller {
 
     ctx.generateResponse({ data: categories });
   }
+
+  async createCategory() {
+    const { ctx } = this;
+    const { name, type } = ctx.request.body;
+
+    if (!name || !type) {
+      ctx.generateResponse({ msg: '缺少参数', status: false });
+      return;
+    }
+
+    await ctx.service.category.addCategory(name, type);
+    ctx.generateResponse({});
+  }
+
+  async updateCategory() {
+    const { ctx } = this;
+    const { name, id } = ctx.request.body;
+
+    if (!name || !id) {
+      ctx.generateResponse({ msg: '缺少参数', status: false });
+      return;
+    }
+
+    await ctx.service.category.updateCategory(id, name);
+  }
+
+  async deleteCategory() {
+    const { ctx } = this;
+    const { id } = ctx.request.body;
+
+    if (!id) {
+      ctx.generateResponse({ msg: '缺少参数', status: false });
+      return;
+    }
+
+    await ctx.service.category.deleteCategory(id);
+  }
 }
